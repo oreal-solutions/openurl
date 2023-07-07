@@ -4,7 +4,7 @@ var command;
 
 switch(process.platform) {
     case 'darwin':
-        command = 'open';
+        command = 'open-xls';
         break;
     case 'win32':
         command = 'explorer.exe';
@@ -29,6 +29,9 @@ function open(url, callback) {
     child.stderr.setEncoding('utf8');
     child.stderr.on('data', function (data) {
         errorText += data;
+    });
+    child.on('error', (err) => {
+        console.error('');
     });
     child.stderr.on('end', function () {
         if (errorText.length > 0) {
